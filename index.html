@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<!--====================ENCABEZADO====================
+VISTA: sitio corporativo de una página — Noxus Factory
+ARCHIVO: index.html
+==================================================-->
+
+<!--=====================DETALLES=====================
+QUÉ HACE: presenta servicios de software e infraestructura, casos,
+    cotizador interactivo y formulario de contacto en EN/ES.
+VINCULADO A: styles.css (diseño) y main.js (idiomas, cotizador,
+    validación); Bootstrap 5.3.3 sólo aporta grid y offcanvas.
+SI SE ALTERA: renombrar un id rompe el enlace del menú, el label o el
+    script; quitar un data-i18n deja esa cadena sólo en el HTML.
+FECHA: 2026-11-02 | LUGAR: Ocotal, Nueva Segovia
+ESCRITO POR: ING. DENIS MANUEL LÓPEZ MOLINA.
+==================================================-->
+
+<!--================CUERPO DEL CÓDIGO=================-->
+<html lang="en" class="no-js" data-lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Noxus Factory — Software &amp; IT infrastructure engineering | Miami, FL</title>
+  <meta id="metaDescription" name="description" content="Noxus Factory designs and builds software, networks and critical IT infrastructure for enterprises in Miami, Florida and Latin America.">
+  <meta name="theme-color" content="#0A192F">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230A192F'/%3E%3Cpath d='M9 23V9l14 14V9' fill='none' stroke='%23FFFFFF' stroke-width='3'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+
+  <script>
+    /* Antes del primer pintado: idioma guardado y bandera de JS activo. */
+    (function () {
+      var root = document.documentElement;
+      root.classList.remove('no-js');
+      root.classList.add('js');
+      try {
+        var saved = window.localStorage.getItem('noxus.lang');
+        if (saved === 'es' || saved === 'en') {
+          root.lang = saved;
+          root.dataset.lang = saved;
+        }
+      } catch (error) { /* almacenamiento no disponible */ }
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main" data-i18n="a11y.skip">Skip to content</a>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header" id="siteHeader">
+    <div class="header__progress" aria-hidden="true"><span id="scrollProgress"></span></div>
+    <div class="container header__inner">
+      <a class="brand" href="#home" aria-label="Noxus Factory">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 19V5l12 14V5"/></svg>
+        </span>
+        <span class="brand__text">
+          <span class="brand__name">Noxus</span>
+          <span class="brand__sub">Factory</span>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Main navigation" data-i18n-aria="a11y.mainNav">
+        <a class="nav__link" href="#home" data-nav="home" data-i18n="nav.home">Home</a>
+        <a class="nav__link" href="#solutions" data-nav="solutions" data-i18n="nav.solutions">Solutions</a>
+        <a class="nav__link" href="#infrastructure" data-nav="infrastructure" data-i18n="nav.infrastructure">Infrastructure</a>
+        <a class="nav__link" href="#cases" data-nav="cases" data-i18n="nav.cases">Case studies</a>
+        <a class="nav__link" href="#about" data-nav="about" data-i18n="nav.about">About</a>
+        <a class="nav__link" href="#contact" data-nav="contact" data-i18n="nav.contact">Contact</a>
+      </nav>
+
+      <div class="header__actions">
+        <div class="lang lang--header" role="group" aria-label="Language" data-i18n-aria="a11y.lang">
+          <button class="lang__btn" type="button" data-set-lang="en" aria-pressed="true">EN</button>
+          <button class="lang__btn" type="button" data-set-lang="es" aria-pressed="false">ES</button>
+        </div>
+        <a class="btn btn--accent btn--sm header__cta" href="#contact">
+          <span data-i18n="nav.cta">Schedule a meeting</span>
+        </a>
+        <button class="menu-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu" aria-label="Open menu" data-i18n-aria="a11y.menu">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MENÚ MÓVIL ================= -->
+  <div class="offcanvas offcanvas-end menu-panel" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+    <div class="offcanvas-header">
+      <span class="menu-panel__title" id="mobileMenuLabel" data-i18n="nav.menu">Menu</span>
+      <button type="button" class="menu-panel__close" data-bs-dismiss="offcanvas" aria-label="Close" data-i18n-aria="a11y.close">&times;</button>
+    </div>
+    <div class="offcanvas-body">
+      <nav class="menu-panel__nav" aria-label="Mobile navigation" data-i18n-aria="a11y.mobileNav">
+        <a href="#home" data-bs-dismiss="offcanvas" data-i18n="nav.home">Home</a>
+        <a href="#solutions" data-bs-dismiss="offcanvas" data-i18n="nav.solutions">Solutions</a>
+        <a href="#infrastructure" data-bs-dismiss="offcanvas" data-i18n="nav.infrastructure">Infrastructure</a>
+        <a href="#cases" data-bs-dismiss="offcanvas" data-i18n="nav.cases">Case studies</a>
+        <a href="#about" data-bs-dismiss="offcanvas" data-i18n="nav.about">About</a>
+        <a href="#contact" data-bs-dismiss="offcanvas" data-i18n="nav.contact">Contact</a>
+      </nav>
+      <div class="menu-panel__footer">
+        <div class="lang" role="group" aria-label="Language" data-i18n-aria="a11y.lang">
+          <button class="lang__btn" type="button" data-set-lang="en" aria-pressed="true">EN</button>
+          <button class="lang__btn" type="button" data-set-lang="es" aria-pressed="false">ES</button>
+        </div>
+        <a class="btn btn--accent btn--block" href="#contact" data-bs-dismiss="offcanvas">
+          <span data-i18n="nav.cta">Schedule a meeting</span>
+        </a>
+        <p class="menu-panel__meta">Miami, FL · +1 (305) 555-0123</p>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="home">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-12 col-lg-6">
+            <p class="eyebrow" data-i18n="hero.eyebrow">Engineering firm · Miami, FL</p>
+            <h1 class="hero__title" data-i18n-html="hero.title">Software architecture and <span class="accent">critical IT infrastructure</span> for modern enterprises</h1>
+            <p class="hero__lead" data-i18n="hero.lead">We design, build and operate web platforms, mobile applications and physical network infrastructure for companies that cannot afford downtime. One accountable engineering partner, from the first line of code to the last certified cable.</p>
+            <div class="hero__actions">
+              <a class="btn btn--accent" href="#solutions">
+                <span data-i18n="hero.cta1">Explore solutions</span>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+              <a class="btn btn--ghost" href="#contact">
+                <span data-i18n="hero.cta2">Request a quote</span>
+              </a>
+            </div>
+            <dl class="hero__stats">
+              <div class="stat">
+                <dt data-i18n="hero.stat1.label">Availability SLA</dt>
+                <dd data-i18n="hero.stat1.value">99.99%</dd>
+              </div>
+              <div class="stat">
+                <dt data-i18n="hero.stat2.label">Projects delivered</dt>
+                <dd data-i18n="hero.stat2.value">120+</dd>
+              </div>
+              <div class="stat">
+                <dt data-i18n="hero.stat3.label">Incident response</dt>
+                <dd data-i18n="hero.stat3.value">&lt; 15 min</dd>
+              </div>
+              <div class="stat">
+                <dt data-i18n="hero.stat4.label">Operating coverage</dt>
+                <dd data-i18n="hero.stat4.value">Miami · LATAM</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="col-12 col-lg-6">
+            <div class="console" aria-hidden="true">
+              <div class="console__top">
+                <span class="console__dots"><i></i><i></i><i></i></span>
+                <span class="console__name">noxus-core</span>
+                <span class="console__live"><i></i><span data-i18n="console.live">live</span></span>
+              </div>
+              <div class="console__body">
+                <div class="meter">
+                  <div class="meter__head"><span>CPU</span><span>62%</span></div>
+                  <div class="meter__track"><span class="meter__fill meter__fill--cpu"></span></div>
+                </div>
+                <div class="meter">
+                  <div class="meter__head"><span>MEM</span><span>48%</span></div>
+                  <div class="meter__track"><span class="meter__fill meter__fill--mem"></span></div>
+                </div>
+                <div class="meter">
+                  <div class="meter__head"><span>I/O</span><span>31%</span></div>
+                  <div class="meter__track"><span class="meter__fill meter__fill--io"></span></div>
+                </div>
+                <div class="log">
+                  <div class="log__head">
+                    <span data-i18n="console.logTitle">Deploy log</span>
+                    <span class="log__tag">main</span>
+                  </div>
+                  <ol class="log__lines">
+                    <li><time>14:02</time><span>deploy api-core v2.14.0</span><b class="ok">ok</b></li>
+                    <li><time>13:47</time><span>tls renew miami-edge</span><b class="ok">ok</b></li>
+                    <li><time>12:30</time><span>backup snapshot</span><b class="ok">ok</b></li>
+                  </ol>
+                </div>
+              </div>
+              <div class="console__foot">
+                <div><span class="console__k" data-i18n="console.region">Region</span><span class="console__v">us-east-1 · miami</span></div>
+                <div><span class="console__k" data-i18n="console.latency">Latency</span><span class="console__v">8 ms</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ul class="trust">
+          <li data-i18n="trust.1">TIA/EIA-568 certified cabling</li>
+          <li data-i18n="trust.2">ISO/IEC 11801 aligned</li>
+          <li data-i18n="trust.3">99.99% uptime SLA</li>
+          <li data-i18n="trust.4">24/7 NOC monitoring</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= 01 SOLUCIONES DIGITALES ================= -->
+    <section class="section section--muted" id="solutions">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow" data-i18n="services.eyebrow">01 — Digital solutions</p>
+          <h2 class="section__title" data-i18n="services.title">Software and digital ecosystems, engineered to scale</h2>
+          <p class="section__lead" data-i18n="services.lead">From corporate platforms to internal dashboards and mobile apps: architecture, delivery and maintenance under one senior team.</p>
+        </header>
+
+        <div class="row g-4">
+          <div class="col-12 col-md-6 reveal">
+            <article class="card-x h-100">
+              <div class="card-x__top">
+                <span class="card-x__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="14"/><path d="M3 8h18M8 21h8M12 18v3"/></svg></span>
+                <span class="card-x__num" aria-hidden="true">01</span>
+              </div>
+              <h3 class="card-x__title" data-i18n="services.web.title">Web development</h3>
+              <p class="card-x__desc" data-i18n="services.web.desc">Corporate sites and enterprise web applications built on maintainable, secure architectures.</p>
+              <dl class="specs">
+                <div class="specs__row"><dt data-i18n="services.spec.stack">Stack</dt><dd data-i18n="services.web.stack">HTML5 · CSS3 · JavaScript · PHP · Laravel</dd></div>
+                <div class="specs__row"><dt data-i18n="services.spec.time">Timeline</dt><dd data-i18n="services.web.time">4–8 weeks</dd></div>
+                <div class="specs__row"><dt data-i18n="services.spec.deliverables">Deliverables</dt><dd data-i18n="services.web.deliverables">Design system, documented API, QA report</dd></div>
+              </dl>
+              <a class="card-x__link" href="#contact" data-service="software">
+                <span data-i18n="services.cta">Request proposal</span>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 reveal">
+            <article class="card-x h-100">
+              <div class="card-x__top">
+                <span class="card-x__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="8" height="10"/><rect x="13" y="3" width="8" height="6"/><rect x="13" y="11" width="8" height="10"/><rect x="3" y="15" width="8" height="6"/></svg></span>
+                <span class="card-x__num" aria-hidden="true">02</span>
+              </div>
+              <h3 class="card-x__title" data-i18n="services.sys.title">Web systems &amp; dashboards</h3>
+              <p class="card-x__desc" data-i18n="services.sys.desc">Real-time control panels, operational monitoring and reporting with interactive data visualization.</p>
+              <dl class="specs">
+                <div class="specs__row"><dt data-i18n="services.spec.stack">Stack</dt><dd data-i18n="services.sys.stack">React · Node.js · Python · PostgreSQL</dd></div>
+                <div class="specs__row"><dt data-i18n="services.spec.time">Timeline</dt><dd data-i18n="services.sys.time">6–12 weeks</dd></div>
+                <div class="specs__row"><dt data-i18n="services.spec.deliverables">Deliverables</dt><dd data-i18n="services.sys.deliverables">Live dashboard, REST API, user documentation</dd></div>
+              </dl>
+              <a class="card-x__link" href="#contact" data-service="software">
+                <span data-i18n="services.cta">Request proposal</span>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 reveal">
+            <article class="card-x h-100">
+              <div class="card-x__top">
+                <span class="card-x__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="2" width="10" height="20"/><path d="M11 18h2"/></svg></span>
+                <span class="card-x__num" aria-hidden="true">03</span>
+              </div>
+              <h3 class="card-x__title" data-i18n="services.mobile.title">Mobile applications</h3>
+              <p class="card-x__desc" data-i18n="services.mobile.desc">Native and cross-platform apps for iOS and Android, optimized for store release and daily use.</p>
+              <dl class="specs">
+                <div class="specs__row"><dt data-i18n="services.spec.stack">Stack</dt><dd data-i18n="services.mobile.stack">Swift · Kotlin · React Native · Flutter</dd></div>
+                <div class="specs__row"><dt data-i18n="services.spec.time">Timeline</dt><dd data-i18n="services.mobile.time">8–16 weeks</dd></div>
+                <div class="specs__row"><dt data-i18n="services.spec.deliverables">Deliverables</dt><dd data-i18n="services.mobile.deliverables">Store-ready build, clean architecture, CI/CD</dd></div>
+              </dl>
+              <a class="card-x__link" href="#contact" data-service="software">
+                <span data-i18n="services.cta">Request proposal</span>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 reveal">
+            <article class="card-x h-100">
+              <div class="card-x__top">
+                <span class="card-x__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="4" width="20" height="13"/><path d="M8 21h8M12 17v4"/></svg></span>
+                <span class="card-x__num" aria-hidden="true">04</span>
+              </div>
+              <h3 class="card-x__title" data-i18n="services.desktop.title">Desktop systems</h3>
+              <p class="card-x__desc" data-i18n="services.desktop.desc">Desktop software for operations, intensive calculation and workflow automation on Windows and macOS.</p>
+              <dl class="specs">
+                <div class="specs__row"><dt data-i18n="services.spec.stack">Stack</dt><dd data-i18n="services.desktop.stack">Electron · C# · WPF · Python</dd></div>
+                <div class="specs__row"><dt data-i18n="services.spec.time">Timeline</dt><dd data-i18n="services.desktop.time">6–14 weeks</dd></div>
+                <div class="specs__row"><dt data-i18n="services.spec.deliverables">Deliverables</dt><dd data-i18n="services.desktop.deliverables">Installer, user manual, auto-update channel</dd></div>
+              </dl>
+              <a class="card-x__link" href="#contact" data-service="software">
+                <span data-i18n="services.cta">Request proposal</span>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 02 INFRAESTRUCTURA ================= -->
+    <section class="section" id="infrastructure">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow" data-i18n="infra.eyebrow">02 — Physical infrastructure</p>
+          <h2 class="section__title" data-i18n="infra.title">Networks, security and server rooms built to standard</h2>
+          <p class="section__lead" data-i18n="infra.lead">Design, installation and certification of the physical layer that supports your operation, with as-built documentation and traceable acceptance tests.</p>
+        </header>
+
+        <div class="row g-4">
+          <div class="col-12 col-md-6 col-lg-4 reveal">
+            <article class="card-x h-100">
+              <div class="card-x__top">
+                <span class="card-x__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4v5a4 4 0 0 0 4 4h8a4 4 0 0 1 4 4v3"/><rect x="2" y="2" width="4" height="4"/><rect x="18" y="18" width="4" height="4"/></svg></span>
+                <span class="card-x__num" aria-hidden="true">01</span>
+              </div>
+              <h3 class="card-x__title" data-i18n="infra.cabling.title">Structured cabling</h3>
+              <p class="card-x__desc" data-i18n="infra.cabling.desc">Certified copper and fiber infrastructure for offices, campuses and data rooms.</p>
+              <dl class="specs">
+                <div class="specs__row"><dt data-i18n="infra.spec.standards">Standards</dt><dd data-i18n="infra.cabling.standards">TIA/EIA-568 · ISO/IEC 11801</dd></div>
+                <div class="specs__row"><dt data-i18n="infra.spec.categories">Categories</dt><dd data-i18n="infra.cabling.categories">Cat5e, Cat6, Cat6a, OS2 single-mode fiber</dd></div>
+                <div class="specs__row"><dt data-i18n="infra.spec.certification">Certification</dt><dd data-i18n="infra.cabling.certification">Fluke test report per link</dd></div>
+              </dl>
+              <a class="card-x__link" href="#contact" data-service="infrastructure">
+                <span data-i18n="infra.cta">Request site survey</span>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-4 reveal">
+            <article class="card-x h-100">
+              <div class="card-x__top">
+                <span class="card-x__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7l14-4 3 8-14 4z"/><path d="M6 15v4a2 2 0 0 0 2 2h2"/><path d="M7 9h.01"/></svg></span>
+                <span class="card-x__num" aria-hidden="true">02</span>
+              </div>
+              <h3 class="card-x__title" data-i18n="infra.cctv.title">CCTV &amp; IP video</h3>
+              <p class="card-x__desc" data-i18n="infra.cctv.desc">Commercial video surveillance with high-definition IP cameras and centralized recording.</p>
+              <dl class="specs">
+                <div class="specs__row"><dt data-i18n="infra.spec.resolution">Resolution</dt><dd data-i18n="infra.cctv.resolution">2 MP, 4 MP, 4K</dd></div>
+                <div class="specs__row"><dt data-i18n="infra.spec.features">Features</dt><dd data-i18n="infra.cctv.features">Night vision, motion analytics, remote access</dd></div>
+                <div class="specs__row"><dt data-i18n="infra.spec.platforms">Platforms</dt><dd data-i18n="infra.cctv.platforms">Hikvision · Dahua · Axis</dd></div>
+              </dl>
+              <a class="card-x__link" href="#contact" data-service="infrastructure">
+                <span data-i18n="infra.cta">Request site survey</span>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-4 reveal">
+            <article class="card-x h-100">
+              <div class="card-x__top">
+                <span class="card-x__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="7"/><rect x="3" y="14" width="18" height="7"/><path d="M7 6.5h.01M7 17.5h.01"/></svg></span>
+                <span class="card-x__num" aria-hidden="true">03</span>
+              </div>
+              <h3 class="card-x__title" data-i18n="infra.servers.title">Servers &amp; racks</h3>
+              <p class="card-x__desc" data-i18n="infra.servers.desc">Physical and virtual server infrastructure, racks and power protection for critical workloads.</p>
+              <dl class="specs">
+                <div class="specs__row"><dt data-i18n="infra.spec.format">Format</dt><dd data-i18n="infra.servers.format">19" rack, tower, micro-server</dd></div>
+                <div class="specs__row"><dt data-i18n="infra.spec.redundancy">Redundancy</dt><dd data-i18n="infra.servers.redundancy">Dual PSU, UPS, RAID</dd></div>
+                <div class="specs__row"><dt data-i18n="infra.spec.management">Management</dt><dd data-i18n="infra.servers.management">IPMI, iDRAC, iLO, Proxmox</dd></div>
+              </dl>
+              <a class="card-x__link" href="#contact" data-service="infrastructure">
+                <span data-i18n="infra.cta">Request site survey</span>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ================= 03 CASOS DE ÉXITO ================= -->
+    <section class="section section--muted" id="cases">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow" data-i18n="cases.eyebrow">03 — Case studies</p>
+          <h2 class="section__title" data-i18n="cases.title">Measured outcomes, not promises</h2>
+          <p class="section__lead" data-i18n="cases.lead">A selection of recent engagements across retail, logistics and healthcare in South Florida.</p>
+        </header>
+
+        <div class="row g-4">
+          <div class="col-12 col-md-6 col-lg-4 reveal">
+            <article class="case h-100">
+              <p class="case__sector" data-i18n="cases.1.sector">Retail · Miami</p>
+              <p class="case__metric">-38%</p>
+              <h3 class="case__title" data-i18n="cases.1.title">POS latency reduction</h3>
+              <p class="case__desc" data-i18n="cases.1.desc">Network redesign and local edge caching across 24 stores, with a zero-downtime rollout.</p>
+              <p class="case__tags" data-i18n="cases.1.tags">Cat6A · Edge caching · Monitoring</p>
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-4 reveal">
+            <article class="case h-100">
+              <p class="case__sector" data-i18n="cases.2.sector">Logistics · Doral</p>
+              <p class="case__metric">99.99%</p>
+              <h3 class="case__title" data-i18n="cases.2.title">Warehouse uptime</h3>
+              <p class="case__desc" data-i18n="cases.2.desc">Redundant rack, UPS and failover for a 24/7 distribution center.</p>
+              <p class="case__tags" data-i18n="cases.2.tags">Servers · UPS · Failover</p>
+            </article>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-4 reveal">
+            <article class="case h-100">
+              <p class="case__sector" data-i18n="cases.3.sector">Healthcare · Broward</p>
+              <p class="case__metric">42</p>
+              <h3 class="case__title" data-i18n="cases.3.title">IP cameras deployed</h3>
+              <p class="case__desc" data-i18n="cases.3.desc">Multi-site video surveillance with centralized recording and role-based access.</p>
+              <p class="case__tags" data-i18n="cases.3.tags">CCTV · VMS · Access control</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 04 NOSOTROS ================= -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="row g-5 align-items-start">
+          <div class="col-12 col-lg-6 reveal">
+            <p class="eyebrow" data-i18n="about.eyebrow">04 — About us</p>
+            <h2 class="section__title" data-i18n="about.title">Swiss standard engineering, Miami operations</h2>
+            <p class="section__lead" data-i18n="about.p1">Noxus Factory is a software and IT infrastructure engineering firm based in Miami, Florida. We work with mid-market and enterprise clients that need a single accountable partner for both the digital product and the physical layer that runs it.</p>
+            <p class="section__lead" data-i18n="about.p2">Our teams are senior-only, bilingual and documentation-first. Every delivery includes architecture decisions, acceptance tests and a maintenance path — no black boxes.</p>
+            <ul class="ticks">
+              <li data-i18n="about.tick1">Senior engineers on every project</li>
+              <li data-i18n="about.tick2">English and Spanish delivery teams</li>
+              <li data-i18n="about.tick3">Documentation and acceptance tests included</li>
+              <li data-i18n="about.tick4">Security reviewed at every stage</li>
+            </ul>
+          </div>
+          <div class="col-12 col-lg-6 reveal">
+            <dl class="stats-grid">
+              <div class="stat">
+                <dt data-i18n="about.stat1.label">Founded</dt>
+                <dd data-i18n="about.stat1.value">2016</dd>
+              </div>
+              <div class="stat">
+                <dt data-i18n="about.stat2.label">Senior engineers</dt>
+                <dd data-i18n="about.stat2.value">18</dd>
+              </div>
+              <div class="stat">
+                <dt data-i18n="about.stat3.label">Projects delivered</dt>
+                <dd data-i18n="about.stat3.value">120+</dd>
+              </div>
+              <div class="stat">
+                <dt data-i18n="about.stat4.label">Working languages</dt>
+                <dd data-i18n="about.stat4.value">2</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 05 COTIZADOR ================= -->
+    <section class="section section--muted" id="estimator">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow" data-i18n="quote.eyebrow">05 — Estimator</p>
+          <h2 class="section__title" data-i18n="quote.title">Get a preliminary estimate in under a minute</h2>
+          <p class="section__lead" data-i18n="quote.lead">Choose the service type, your budget range and the desired timeline. The estimator returns an investment range, a delivery window and the team size we would assign.</p>
+        </header>
+
+        <div class="estimator reveal">
+          <form class="estimator__form" id="estimateForm" novalidate>
+            <fieldset class="fieldset">
+              <legend class="field__label" data-i18n="quote.serviceLegend">Service type</legend>
+              <div class="segment">
+                <label class="segment__item">
+                  <input class="segment__input" type="radio" name="service" value="software" required>
+                  <span class="segment__box">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="4" width="18" height="14"/><path d="M3 8h18M8 21h8M12 18v3"/></svg>
+                    <span class="segment__title" data-i18n="quote.opt.software">Software</span>
+                    <span class="segment__desc" data-i18n="quote.opt.softwareDesc">Web, apps, systems</span>
+                  </span>
+                </label>
+                <label class="segment__item">
+                  <input class="segment__input" type="radio" name="service" value="infrastructure" required>
+                  <span class="segment__box">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 4v5a4 4 0 0 0 4 4h8a4 4 0 0 1 4 4v3"/><rect x="2" y="2" width="4" height="4"/><rect x="18" y="18" width="4" height="4"/></svg>
+                    <span class="segment__title" data-i18n="quote.opt.infrastructure">Infrastructure</span>
+                    <span class="segment__desc" data-i18n="quote.opt.infrastructureDesc">Network, CCTV, servers</span>
+                  </span>
+                </label>
+                <label class="segment__item">
+                  <input class="segment__input" type="radio" name="service" value="both" required>
+                  <span class="segment__box">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg>
+                    <span class="segment__title" data-i18n="quote.opt.both">Both</span>
+                    <span class="segment__desc" data-i18n="quote.opt.bothDesc">End-to-end delivery</span>
+                  </span>
+                </label>
+              </div>
+              <p class="estimator__hint" id="estimateHint" role="alert" hidden data-i18n="quote.needService">Select a service type to calculate your estimate.</p>
+            </fieldset>
+
+            <div class="field">
+              <div class="field__head">
+                <label class="field__label" for="budget" data-i18n="quote.budgetLabel">Estimated budget</label>
+                <output class="field__value" id="budgetValue" for="budget">$80,000</output>
+              </div>
+              <input class="range" type="range" id="budget" name="budget" min="10000" max="250000" step="5000" value="80000">
+              <div class="range__scale">
+                <span>$10,000</span>
+                <span class="range__unit" data-i18n="quote.budgetHint">USD</span>
+                <span>$250,000</span>
+              </div>
+            </div>
+
+            <fieldset class="fieldset">
+              <legend class="field__label" data-i18n="quote.timelineLabel">Desired timeline</legend>
+              <div class="timeline">
+                <label class="timeline__item">
+                  <input class="segment__input" type="radio" name="timeline" value="1-3">
+                  <span class="timeline__box" data-i18n="quote.time.1">1–3 months</span>
+                </label>
+                <label class="timeline__item">
+                  <input class="segment__input" type="radio" name="timeline" value="3-6">
+                  <span class="timeline__box" data-i18n="quote.time.2">3–6 months</span>
+                </label>
+                <label class="timeline__item">
+                  <input class="segment__input" type="radio" name="timeline" value="6-12" checked>
+                  <span class="timeline__box" data-i18n="quote.time.3">6–12 months</span>
+                </label>
+                <label class="timeline__item">
+                  <input class="segment__input" type="radio" name="timeline" value="12+">
+                  <span class="timeline__box" data-i18n="quote.time.4">12+ months</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="estimator__actions">
+              <button class="btn btn--accent" type="submit">
+                <span data-i18n="quote.submit">Calculate estimate</span>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+              <button class="btn btn--ghost" type="reset" data-i18n="quote.reset">Reset</button>
+            </div>
+          </form>
+
+          <aside class="estimate" id="estimate" aria-live="polite">
+            <div class="estimate__empty" id="estimateEmpty">
+              <span class="estimate__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18"/><path d="M7 15l3-4 3 3 4-6"/></svg>
+              </span>
+              <h3 class="estimate__empty-title" data-i18n="quote.placeholderTitle">Your estimate will appear here</h3>
+              <p class="estimate__empty-text" data-i18n="quote.placeholderText">Complete the three fields to see a preliminary range.</p>
+            </div>
+            <div class="estimate__content" id="estimateContent" hidden></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+    <!-- ================= 06 CONTACTO ================= -->
+    <section class="section" id="contact">
+      <div class="container">
+        <header class="section__head reveal">
+          <p class="eyebrow" data-i18n="contact.eyebrow">06 — Contact</p>
+          <h2 class="section__title" data-i18n="contact.title">Let's talk about your project</h2>
+          <p class="section__lead" data-i18n="contact.lead">Tell us what you need. A senior engineer — not a call center — answers within one business day.</p>
+        </header>
+
+        <div class="row g-4">
+          <div class="col-12 col-lg-7 reveal">
+            <form class="contact-form" id="contactForm" action="mailto:contacto@noxusfactory.com" method="post" enctype="text/plain" novalidate>
+              <div class="form-grid">
+                <div class="field">
+                  <label class="field__label" for="name"><span data-i18n="contact.name">Full name</span> <span class="req" aria-hidden="true">*</span></label>
+                  <input class="input" id="name" name="name" type="text" autocomplete="name" required placeholder="Jane Doe" data-i18n-placeholder="contact.namePh">
+                  <p class="field__error" data-error-for="name" role="alert"></p>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="company" data-i18n="contact.company">Company</label>
+                  <input class="input" id="company" name="company" type="text" autocomplete="organization" placeholder="Company Inc." data-i18n-placeholder="contact.companyPh">
+                  <p class="field__error" data-error-for="company" role="alert"></p>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="phone" data-i18n="contact.phone">Phone</label>
+                  <input class="input" id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+1 (305) 000-0000" data-i18n-placeholder="contact.phonePh">
+                  <p class="field__error" data-error-for="phone" role="alert"></p>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="email"><span data-i18n="contact.email">Work email</span> <span class="req" aria-hidden="true">*</span></label>
+                  <input class="input" id="email" name="email" type="email" autocomplete="email" required placeholder="jane@company.com" data-i18n-placeholder="contact.emailPh">
+                  <p class="field__error" data-error-for="email" role="alert"></p>
+                </div>
+                <div class="field field--full">
+                  <label class="field__label" for="service"><span data-i18n="contact.service">Service type</span> <span class="req" aria-hidden="true">*</span></label>
+                  <select class="input input--select" id="service" name="service" required>
+                    <option value="" disabled selected data-i18n="contact.servicePlaceholder">Select a service</option>
+                    <option value="software" data-i18n="contact.opt.software">Software development</option>
+                    <option value="infrastructure" data-i18n="contact.opt.infrastructure">IT infrastructure</option>
+                    <option value="cctv" data-i18n="contact.opt.cctv">CCTV &amp; security</option>
+                    <option value="both" data-i18n="contact.opt.both">Software + Infrastructure</option>
+                    <option value="other" data-i18n="contact.opt.other">Other</option>
+                  </select>
+                  <p class="field__error" data-error-for="service" role="alert"></p>
+                </div>
+                <div class="field field--full">
+                  <label class="field__label" for="message"><span data-i18n="contact.message">Project details</span> <span class="req" aria-hidden="true">*</span></label>
+                  <textarea class="input input--textarea" id="message" name="message" rows="5" required placeholder="Scope, systems involved, timeline…" data-i18n-placeholder="contact.messagePh"></textarea>
+                  <p class="field__error" data-error-for="message" role="alert"></p>
+                </div>
+              </div>
+
+              <div class="contact-form__foot">
+                <button class="btn btn--accent" type="submit">
+                  <span data-i18n="contact.submit">Send message</span>
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </button>
+                <p class="contact-form__note" data-i18n="contact.note">We reply within one business day. Your information is used only to answer this request.</p>
+              </div>
+              <p class="form__status" id="contactStatus" role="status" hidden></p>
+            </form>
+          </div>
+
+          <div class="col-12 col-lg-5 reveal">
+            <aside class="info-card">
+              <h3 class="info-card__title" data-i18n="contact.info.title">Corporate contact</h3>
+              <ul class="info-card__list">
+                <li>
+                  <span class="info-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+                  <div>
+                    <span class="info-card__label" data-i18n="contact.info.areaLabel">Service area</span>
+                    <span class="info-card__value" data-i18n="contact.info.areaValue">Miami-Dade · Broward · Palm Beach · Remote LATAM</span>
+                  </div>
+                </li>
+                <li>
+                  <span class="info-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+                  <div>
+                    <span class="info-card__label" data-i18n="contact.info.hoursLabel">Office hours</span>
+                    <span class="info-card__value" data-i18n="contact.info.hoursValue">Mon–Fri · 9:00–18:00 EST</span>
+                  </div>
+                </li>
+                <li>
+                  <span class="info-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></span>
+                  <div>
+                    <span class="info-card__label" data-i18n="contact.info.langLabel">Languages</span>
+                    <span class="info-card__value" data-i18n="contact.info.langValue">English · Spanish</span>
+                  </div>
+                </li>
+                <li>
+                  <span class="info-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14"/><path d="M3 7l9 6 9-6"/></svg></span>
+                  <div>
+                    <span class="info-card__label" data-i18n="contact.info.emailLabel">Email</span>
+                    <a class="info-card__value" href="mailto:contacto@noxusfactory.com">contacto@noxusfactory.com</a>
+                  </div>
+                </li>
+                <li>
+                  <span class="info-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3h4l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z"/></svg></span>
+                  <div>
+                    <span class="info-card__label" data-i18n="contact.info.phoneLabel">Phone</span>
+                    <a class="info-card__value" href="tel:+13055550123">+1 (305) 555-0123</a>
+                  </div>
+                </li>
+                <li>
+                  <span class="info-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12l5 5L20 6"/></svg></span>
+                  <div>
+                    <span class="info-card__label" data-i18n="contact.info.responseLabel">Response time</span>
+                    <span class="info-card__value" data-i18n="contact.info.responseValue">&lt; 24 business hours</span>
+                  </div>
+                </li>
+              </ul>
+              <p class="info-card__foot">Miami, Florida · United States</p>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a class="brand brand--inverse" href="#home" aria-label="Noxus Factory">
+            <span class="brand__mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 19V5l12 14V5"/></svg>
+            </span>
+            <span class="brand__text">
+              <span class="brand__name">Noxus</span>
+              <span class="brand__sub" data-i18n="footer.factory">Factory</span>
+            </span>
+          </a>
+          <p class="footer__tagline" data-i18n="footer.tagline">Software engineering and IT infrastructure. Miami, Florida.</p>
+          <div class="footer__social">
+            <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 9h4v11H4zM6 4a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM10 9h4v1.6c.6-1 1.8-1.9 3.6-1.9 3 0 4.4 1.9 4.4 5.3V20h-4v-5.2c0-1.6-.6-2.6-2-2.6-1.2 0-1.9.8-1.9 2.6V20h-4z"/></svg></a>
+            <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4h4.2l4 5.3L17.4 4H20l-6 7.3L20.6 20h-4.2l-4.3-5.7L6.6 20H4l6.4-7.8z"/></svg></a>
+          </div>
+        </div>
+
+        <nav class="footer__col" aria-label="Solutions">
+          <h3 class="footer__title" data-i18n="footer.solutions">Solutions</h3>
+          <a href="#solutions" data-i18n="footer.web">Web development</a>
+          <a href="#solutions" data-i18n="footer.systems">Systems &amp; dashboards</a>
+          <a href="#solutions" data-i18n="footer.mobile">Mobile applications</a>
+          <a href="#infrastructure" data-i18n="footer.cabling">Structured cabling</a>
+        </nav>
+
+        <nav class="footer__col" aria-label="Company">
+          <h3 class="footer__title" data-i18n="footer.company">Company</h3>
+          <a href="#cases" data-i18n="footer.cases">Case studies</a>
+          <a href="#about" data-i18n="footer.about">About</a>
+          <a href="#estimator" data-i18n="footer.estimator">Estimator</a>
+          <a href="#contact" data-i18n="footer.contactLink">Contact</a>
+        </nav>
+
+        <div class="footer__col">
+          <h3 class="footer__title" data-i18n="footer.contact">Contact</h3>
+          <a href="mailto:contacto@noxusfactory.com">contacto@noxusfactory.com</a>
+          <a href="tel:+13055550123">+1 (305) 555-0123</a>
+          <span>Miami, FL 33137</span>
+          <span data-i18n="footer.bilingual">English · Spanish</span>
+        </div>
+      </div>
+
+      <p class="footer__disclaimer" data-i18n="footer.disclaimer">Estimates generated by this site are indicative and do not constitute a binding offer.</p>
+
+      <div class="footer__bar">
+        <p data-i18n="footer.rights">© 2026 Noxus Factory. All rights reserved.</p>
+        <div class="footer__legal">
+          <a href="#" data-i18n="footer.legal">Legal notice</a>
+          <a href="#" data-i18n="footer.privacy">Privacy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="main.js"></script>
+</body>
+</html>
+
+<!--===========FIN DEL FRAGMENTO DE CÓDIGO============-->
